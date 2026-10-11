@@ -1,0 +1,107 @@
+{
+  "sheet": "pals",
+  "about": "Pals in PalCraft. tribe is Palworld's own codename; the model, textures, name and element are read from the player's Palworld install by the extractor. Minecraft-side numbers are this mod's balance. meshYaw turns the Palworld mesh to face the Pal's walking direction (UE meshes usually face +Y).",
+  "columns": [
+    "id",
+    "tribe",
+    "fallbackName",
+    "health",
+    "attack",
+    "speed",
+    "width",
+    "height",
+    "catchBase",
+    "spawnBiomes",
+    "spawnWeight",
+    "groupMin",
+    "groupMax",
+    "meshYaw",
+    "verifiedInGame"
+  ],
+  "rows": [
+    {
+      "id": "lamball",
+      "tribe": "SheepBall",
+      "fallbackName": "Lamball",
+      "health": 14,
+      "attack": 2,
+      "speed": 0.22,
+      "width": 0.9,
+      "height": 0.9,
+      "catchBase": 0.9,
+      "spawnBiomes": [
+        "plains",
+        "meadow",
+        "sunflower_plains"
+      ],
+      "spawnWeight": 12,
+      "groupMin": 2,
+      "groupMax": 4,
+      "meshYaw": 90,
+      "verifiedInGame": false
+    },
+    {
+      "id": "cattiva",
+      "tribe": "PinkCat",
+      "fallbackName": "Cattiva",
+      "health": 14,
+      "attack": 3,
+      "speed": 0.26,
+      "width": 0.7,
+      "height": 1.0,
+      "catchBase": 0.85,
+      "spawnBiomes": [
+        "plains",
+        "forest",
+        "birch_forest"
+      ],
+      "spawnWeight": 10,
+      "groupMin": 1,
+      "groupMax": 3,
+      "meshYaw": 90,
+      "verifiedInGame": false
+    },
+    {
+      "id": "chikipi",
+      "tribe": "ChickenPal",
+      "fallbackName": "Chikipi",
+      "health": 10,
+      "attack": 1,
+      "speed": 0.24,
+      "width": 0.7,
+      "height": 0.8,
+      "catchBase": 0.95,
+      "spawnBiomes": [
+        "plains",
+        "savanna",
+        "meadow"
+      ],
+      "spawnWeight": 12,
+      "groupMin": 2,
+      "groupMax": 4,
+      "meshYaw": 90,
+      "verifiedInGame": false
+    },
+    {
+      "id": "foxparks",
+      "tribe": "Kitsunebi",
+      "fallbackName": "Foxparks",
+      "health": 16,
+      "attack": 4,
+      "speed": 0.28,
+      "width": 0.8,
+      "height": 0.9,
+      "catchBase": 0.75,
+      "spawnBiomes": [
+        "forest",
+        "taiga",
+        "savanna"
+      ],
+      "spawnWeight": 8,
+      "groupMin": 1,
+      "groupMax": 2,
+      "meshYaw": 90,
+      "verifiedInGame": false
+    }
+  ]
+}

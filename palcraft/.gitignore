@@ -1,0 +1,7 @@
+.cache/
+dist/
+fabric/run/
+fabric/build/
+fabric/.gradle/
+extractor/bin/
+extractor/obj/

@@ -1,0 +1,12 @@
+{
+  "sheet": "palworld_assets",
+  "about": "What the extractor reads from the player's Palworld (Pal/Content/Paks, UE 5.1). Nothing here is shipped; it is converted on the player's PC into the Minecraft instance's palcraft folder.",
+  "columns": ["id", "kind", "path", "usedBy", "verifiedInGame"],
+  "rows": [
+    {"id": "pal_mesh", "kind": "skeletal_mesh", "path": "Pal/Content/Pal/Model/Character/Monster/{tribe}/SK_{tribe}", "usedBy": "render", "verifiedInGame": false},
+    {"id": "pal_textures", "kind": "material_textures", "path": "materials of pal_mesh (base colour parameter)", "usedBy": "render", "verifiedInGame": false},
+    {"id": "pal_names", "kind": "data_table", "path": "Pal/Content/L10N/en/Pal/DataTable/Text/DT_PalNameText_Common", "usedBy": "names", "verifiedInGame": false},
+    {"id": "pal_params", "kind": "data_table", "path": "Pal/Content/Pal/DataTable/Character/DT_PalMonsterParameter", "usedBy": "names", "verifiedInGame": false},
+    {"id": "sphere_icon", "kind": "texture", "path": "first Texture2D under Pal/Content/Pal/Texture whose name contains PalSphere", "usedBy": "items", "verifiedInGame": false}
+  ]
+}

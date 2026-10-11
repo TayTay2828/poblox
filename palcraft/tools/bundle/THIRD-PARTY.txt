@@ -1,0 +1,26 @@
+PalCraft {VERSION} ships a portable Minecraft launcher setup so Melty can start PalCraft in one click.
+It doesn't include Minecraft (Prism Launcher downloads it after you sign in with a Microsoft account that
+owns Minecraft: Java Edition) or anything from Palworld (PalCraft reads the Pals from your own Palworld
+install the first time it starts, into Prism/instances/PalCraft/.minecraft/palcraft on your PC).
+
+Prism Launcher {PRISM_VERSION} (Prism/, the unmodified portable Windows build)
+  License: GNU General Public License v3.0 (Prism/LICENSE-PrismLauncher.txt)
+  Source:  https://github.com/PrismLauncher/PrismLauncher/tree/{PRISM_VERSION}
+
+Fabric API (instances/PalCraft/.minecraft/mods/fabric-api-*.jar)
+  License: Apache License 2.0
+  Source:  https://github.com/FabricMC/fabric
+
+CUE4Parse and CUE4Parse-Conversion (inside palcraft-tools/PalCraftExtractor.exe): reads Unreal Engine files
+  License: Apache License 2.0
+  Source:  https://github.com/FabianFG/CUE4Parse
+  With: SixLabors.ImageSharp (Six Labors Split License, open-source use), SkiaSharp (MIT),
+        AssetRipper.TextureDecoder (MIT), Newtonsoft.Json (MIT), .NET runtime (MIT)
+
+Mappings.usmap (palcraft-tools/): Unreal type layouts for Palworld, from PalDex by Catherine Renelle
+  License: MIT
+  Source:  https://github.com/catrenelle/PalDex
+
+PalCraft (mods/palcraft-*.jar, palcraft-tools/PalCraftExtractor.exe)
+  License: MIT, by TayTay2828, built with Claude Code
+  Source:  https://github.com/taytay2828/poblox/tree/claude/roblox-peak-mashup-melty-30b09b/palcraft

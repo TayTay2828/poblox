@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed",
+  "games": [
+    {
+      "slug": "minecraft-java",
+      "role": "primary"
+    },
+    {
+      "slug": "palworld",
+      "role": "companion"
+    }
+  ],
+  "components": [
+    {
+      "id": "main",
+      "fileName": "PalCraft-*.zip",
+      "label": "PalCraft",
+      "kind": "main",
+      "required": true
+    }
+  ],
+  "requirements": [],
+  "mappings": [
+    {
+      "component": "main",
+      "from": "",
+      "to": "{managed}"
+    }
+  ],
+  "settings": [
+    {
+      "file": "{managed}/Prism/instances/PalCraft/.minecraft/config/palcraft.properties",
+      "set": {
+        "palworld": "{game:palworld}"
+      }
+    }
+  ],
+  "launch": {
+    "kind": "exe",
+    "path": "{managed}/Prism/prismlauncher.exe",
+    "args": [
+      "--launch",
+      "PalCraft",
+      "--world",
+      "PalCraft"
+    ]
+  },
+  "setup": {
+    "label": "Minecraft",
+    "launch": {
+      "kind": "exe",
+      "path": "{managed}/Prism/prismlauncher.exe",
+      "args": [
+        "--launch",
+        "PalCraft"
+      ]
+    },
+    "done": {
+      "file": "{managed}/Prism/instances/PalCraft/.minecraft/logs/latest.log",
+      "contains": "Backend library:"
+    }
+  },
+  "runtimeData": [
+    "{managed}/Prism"
+  ],
+  "notes": {
+    "firstLaunch": "The first start signs Minecraft in and downloads it, then PalCraft reads your Pals from your Palworld install (under a minute). You start in the PalCraft world with 16 Pal Spheres: hit a Pal to weaken it, then right-click to throw a sphere. Right-click a filled sphere to send your Pal out."
+  },
+  "test": {
+    "checks": [
+      "palworld-read",
+      "pal-models",
+      "world-joined",
+      "pals-spawned",
+      "pal-caught"
+    ],
+    "minutes": 6
+  }
+}

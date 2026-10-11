@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "palcraft",
+  "version": "${version}",
+  "name": "PalCraft",
+  "description": "Catch real Palworld Pals in Minecraft, read from your own Palworld install.",
+  "authors": ["TayTay2828"],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.palcraft.PalCraft"],
+    "client": ["dev.palcraft.client.PalCraftClient"]
+  },
+  "depends": { "fabricloader": ">=0.19.5", "minecraft": "~26.3", "java": ">=25", "fabric-api": "*" }
+}

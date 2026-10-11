@@ -1,0 +1,12 @@
+{
+  "sheet": "tests",
+  "about": "Checks PalCraft reports in a Melty test run (recipe test.checks).",
+  "columns": ["id", "passWhen", "system"],
+  "rows": [
+    {"id": "palworld-read", "passWhen": "the extractor read the player's Palworld and wrote every Pal's mesh and texture", "system": "extract"},
+    {"id": "pal-models", "passWhen": "every Pal's mesh loaded on the client", "system": "render"},
+    {"id": "world-joined", "passWhen": "the test world loaded with the player in it", "system": "spawn"},
+    {"id": "pals-spawned", "passWhen": "starter Pals spawned near the player", "system": "spawn"},
+    {"id": "pal-caught", "passWhen": "a scripted sphere throw caught a Pal and the sphere holds it", "system": "catch"}
+  ]
+}

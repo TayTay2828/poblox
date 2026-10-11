@@ -1,0 +1,8 @@
+{
+  "sheet": "items",
+  "about": "Items added by PalCraft.",
+  "columns": ["id", "name", "maxStack", "texture", "palworldIcon", "starterCount", "verifiedInGame"],
+  "rows": [
+    {"id": "pal_sphere", "name": "Pal Sphere", "maxStack": 16, "texture": "item/pal_sphere", "palworldIcon": "PalSphere", "starterCount": 16, "verifiedInGame": false}
+  ]
+}

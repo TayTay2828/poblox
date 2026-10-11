@@ -1,0 +1,15 @@
+{
+  "sheet": "systems",
+  "about": "PalCraft systems: one behaviour each, with the sheets it reads.",
+  "columns": ["id", "description", "reads", "verifiedInGame"],
+  "rows": [
+    {"id": "extract", "description": "First start: read the player's Palworld into the instance's palcraft folder (models, textures, names, elements); later starts reuse it", "reads": ["palworld_assets", "pals"], "verifiedInGame": false},
+    {"id": "render", "description": "Draw each Pal with its own Palworld mesh and textures, scaled to its hitbox, with a little walk bob", "reads": ["pals", "palworld_assets"], "verifiedInGame": false},
+    {"id": "names", "description": "Pals show their Palworld name and element", "reads": ["pals", "palworld_assets"], "verifiedInGame": false},
+    {"id": "spawn", "description": "Pals spawn in their biomes; a new world puts a few of each near the player", "reads": ["pals"], "verifiedInGame": false},
+    {"id": "starter", "description": "First join in a world gives starterCount Pal Spheres", "reads": ["items"], "verifiedInGame": false},
+    {"id": "catch", "description": "Thrown Pal Sphere: chance = catchBase x (1.5 - health fraction); success stores the Pal in the sphere", "reads": ["pals", "items"], "verifiedInGame": false},
+    {"id": "companion", "description": "Use a filled sphere to send the Pal out: it follows you and attacks what you attack or what attacks you. Use an empty sphere on your Pal to recall it", "reads": ["pals", "items"], "verifiedInGame": false},
+    {"id": "items", "description": "Pal Sphere uses Palworld's own Pal Sphere icon once extracted (bundled plain icon until then)", "reads": ["items", "palworld_assets"], "verifiedInGame": false}
+  ]
+}
