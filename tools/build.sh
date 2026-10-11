@@ -2,7 +2,7 @@
 # Preflight the sheets, build the plugin and package dist/RobloxObbyPeak-<version>.zip
 set -euo pipefail
 cd "$(dirname "$0")/.."
-VERSION=0.1.0
+VERSION=0.1.1
 if [ ! -f lib/BepInEx/core/BepInEx.dll ]; then
   # compile-time references only (BepInEx 5.4, LGPL-2.1); not shipped, Melty installs BepInEx for PEAK itself
   mkdir -p lib/tmp && curl -sSL -o lib/tmp/bep.zip https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.3/BepInEx_win_x64_5.4.23.3.zip

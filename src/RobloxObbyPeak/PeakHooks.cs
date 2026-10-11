@@ -25,13 +25,24 @@ namespace RobloxObbyPeak
                 var type = asm?.GetType(row.TypeName) ?? asm?.GetTypes().FirstOrDefault(t => t.Name == row.TypeName);
                 MemberInfo m = null;
                 if (type != null)
-                    m = row.MemberKind == "field" ? (MemberInfo)type.GetField(row.Member, All)
-                      : row.MemberKind == "property" ? type.GetProperty(row.Member, All)
-                      : type.GetMethods(All).FirstOrDefault(x => x.Name == row.Member);
+                    m = row.MemberKind == "method" ? type.GetMethods(All).FirstOrDefault(x => x.Name == row.Member)
+                      : FindValue(type, row.Member);
                 if (row.TypeName == "Character") CharacterType = CharacterType ?? type;
                 if (m != null) { members[row.Id] = m; log.LogInfo($"hook {row.Id}: {row.TypeName}.{row.Member} ok"); }
                 else log.LogWarning($"hook {row.Id}: {row.TypeName}.{row.Member} not found; fallback = {row.Fallback}");
             }
+        }
+
+        /// <summary>A field or property by name; also tries the usual variants (isDead, Dead, _dead).</summary>
+        static MemberInfo FindValue(Type type, string name)
+        {
+            var cap = char.ToUpperInvariant(name[0]) + name.Substring(1);
+            foreach (var n in new[] { name, cap, "is" + cap, "_" + name, "m_" + cap })
+            {
+                var f = type.GetField(n, All); if (f != null) return f;
+                var p = type.GetProperty(n, All); if (p != null && p.GetGetMethod(true) != null) return p;
+            }
+            return null;
         }
 
         public bool Has(string id) => members.ContainsKey(id);

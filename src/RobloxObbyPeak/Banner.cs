@@ -38,9 +38,25 @@ namespace RobloxObbyPeak
                 args[0] = robloxFontPath; args[1] = 0; args[2] = 90; args[3] = 9;
                 args[4] = Enum.ToObject(create.p[4].ParameterType, 4165); // GlyphRenderMode.SDFAA
                 args[5] = 1024; args[6] = 1024;
-                for (int i = 7; i < args.Length; i++) args[i] = create.p[i].HasDefaultValue ? create.p[i].DefaultValue : null;
+                for (int i = 7; i < args.Length; i++)
+                    args[i] = create.p[i].Name == "enableMultiAtlasSupport" ? (object)false
+                        : create.p[i].HasDefaultValue ? create.p[i].DefaultValue : null;
                 var fontAsset = create.m.Invoke(null, args);
                 if (fontAsset == null) { Log.LogWarning("Roblox font could not be turned into a TMP font"); return; }
+                Breadcrumbs.Write("font asset created");
+
+                // Rasterise every glyph the banner can use now, then freeze the atlas, so drawing never reads the font file.
+                var chars = new string(Enumerable.Range(32, 95).Select(c => (char)c).ToArray());
+                var tryAdd = fontAssetT.GetMethods().FirstOrDefault(m => m.Name == "TryAddCharacters" && m.GetParameters().Length >= 1 && m.GetParameters()[0].ParameterType == typeof(string));
+                if (tryAdd == null) { Log.LogWarning("TMP TryAddCharacters unavailable; banner uses IMGUI"); return; }
+                var addArgs = new object[tryAdd.GetParameters().Length];
+                addArgs[0] = chars;
+                for (int i = 1; i < addArgs.Length; i++) { var pi = tryAdd.GetParameters()[i]; addArgs[i] = pi.ParameterType.IsByRef ? null : pi.HasDefaultValue ? pi.DefaultValue : null; }
+                tryAdd.Invoke(fontAsset, addArgs);
+                var mode = fontAssetT.GetProperty("atlasPopulationMode");
+                if (mode == null) { Log.LogWarning("TMP atlasPopulationMode unavailable; banner uses IMGUI"); return; }
+                mode.SetValue(fontAsset, Enum.ToObject(mode.PropertyType, 0)); // AtlasPopulationMode.Static
+                Breadcrumbs.Write("font glyphs baked, atlas static");
 
                 var canvasGo = new GameObject("RobloxObbyPeak_Canvas");
                 canvasGo.transform.SetParent(transform, false);

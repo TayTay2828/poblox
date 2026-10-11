@@ -15,7 +15,7 @@ namespace RobloxObbyPeak
     public class Plugin : BaseUnityPlugin
     {
         public const string Guid = "melty.robloxobbypeak";
-        public const string Version = "0.1.0";
+        public const string Version = "0.1.1";
         const string TestEnv = "ROBLOXOBBYPEAK_TEST";
 
         internal static Plugin Instance;
@@ -26,7 +26,8 @@ namespace RobloxObbyPeak
         PeakHooks hooks;
         Banner banner;
         AudioSource audio2d;
-        Material skyMaterial;
+        RobloxSky sky;
+        float nextHeartbeat;
 
         // obby run state (reset per scene)
         float? baseHeight;
@@ -44,6 +45,7 @@ namespace RobloxObbyPeak
         void Awake()
         {
             Instance = this; Log = Logger; Banner.Log = Logger;
+            Breadcrumbs.Begin();
             robloxFolder = Config.Bind("Roblox", "RobloxFolder", "", "Roblox install or version folder. Empty = use the folder Melty passes, else %LOCALAPPDATA%\\Roblox.");
             foreach (var s in Sheets.Systems)
                 systems[s.Id] = Config.Bind("Systems", s.ConfigKey, s.Default, s.Description);
@@ -65,7 +67,6 @@ namespace RobloxObbyPeak
 
             var go = new GameObject("RobloxObbyPeak");
             DontDestroyOnLoad(go);
-            go.hideFlags = HideFlags.HideAndDontSave;
             audio2d = go.AddComponent<AudioSource>();
             audio2d.playOnAwake = false; audio2d.spatialBlend = 0f;
             banner = go.AddComponent<Banner>();
@@ -81,10 +82,14 @@ namespace RobloxObbyPeak
 
         IEnumerator Boot()
         {
+            Breadcrumbs.Write("loading Roblox files");
             yield return assets.LoadAll();
+            Breadcrumbs.Write("Roblox files loaded; building banner font");
             banner.Setup(assets.FontPath);
+            Breadcrumbs.Write("banner ready (" + banner.FontSource + ")");
             if (assets.SkyTextures != null && On("roblox_sky")) BuildSky();
-            Log.LogInfo($"RobloxObbyPeak ready: sounds={string.Join(",", assets.Sounds.Keys)} font={banner.FontSource} sky={(skyMaterial != null ? "roblox" : "peak")}");
+            Log.LogInfo($"RobloxObbyPeak ready: sounds={string.Join(",", assets.Sounds.Keys)} font={banner.FontSource} sky={(sky != null ? "roblox" : "peak")}");
+            Breadcrumbs.Write("ready");
             if (testMode) RunTest();
         }
 
@@ -97,12 +102,18 @@ namespace RobloxObbyPeak
         {
             baseHeight = null; firstSeen = -1f; teamStage = 0;
             wasDown.Clear(); lastPos.Clear(); lastOof.Clear();
+            Breadcrumbs.Write("scene " + scene);
             Log.LogInfo("Scene " + scene + (IsGameplayScene(scene) ? " (obby on)" : " (lobby)"));
             ApplySky();
         }
 
         void Tick()
         {
+            if (Time.unscaledTime >= nextHeartbeat)
+            {
+                nextHeartbeat = Time.unscaledTime + 5f;
+                Breadcrumbs.Write("alive in " + SceneManager.GetActiveScene().name);
+            }
             if (hooks == null || assets == null || !assets.Done) return;
             if (!IsGameplayScene(SceneManager.GetActiveScene().name)) return;
             var chars = hooks.Characters();
@@ -170,19 +181,15 @@ namespace RobloxObbyPeak
 
         void BuildSky()
         {
-            var shader = Shader.Find("Skybox/6 Sided");
-            if (shader == null) { Log.LogWarning("Skybox shader not in this build; keeping PEAK's sky"); return; }
-            skyMaterial = new Material(shader);
-            string[] props = { "_FrontTex", "_BackTex", "_LeftTex", "_RightTex", "_UpTex", "_DownTex" };
-            for (int i = 0; i < 6; i++) skyMaterial.SetTexture(props[i], assets.SkyTextures[i]);
+            sky = driver.gameObject.AddComponent<RobloxSky>();
+            if (!sky.Build(assets.SkyTextures)) { Log.LogWarning("No unlit shader found for the Roblox sky; keeping PEAK's sky"); Destroy(sky); sky = null; return; }
+            Log.LogInfo("Roblox sky box built with " + sky.ShaderName);
             ApplySky();
         }
 
         void ApplySky()
         {
-            if (skyMaterial == null || !IsGameplayScene(SceneManager.GetActiveScene().name)) return;
-            RenderSettings.skybox = skyMaterial;
-            DynamicGI.UpdateEnvironment();
+            if (sky != null) sky.Active = IsGameplayScene(SceneManager.GetActiveScene().name);
         }
 
         void RunTest()
@@ -201,6 +208,7 @@ namespace RobloxObbyPeak
             };
             Log.LogInfo($"RobloxObbyPeak TEST: font={banner.FontSource} sounds={assets.Sounds.Count}");
             MeltyTest.Report(checksFile, fail);
+            Breadcrumbs.Write("test checks written; banner on screen");
         }
     }
 }

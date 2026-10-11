@@ -1,16 +1,106 @@
 {
   "sheet": "hooks",
   "about": "PEAK game members the mod reads, resolved by name at runtime with reflection. A missing member logs once and its fallback is used.",
-  "columns": ["id", "typeName", "member", "memberKind", "isStatic", "purpose", "fallback", "verifiedInGame"],
+  "columns": [
+    "id",
+    "typeName",
+    "member",
+    "memberKind",
+    "isStatic",
+    "purpose",
+    "fallback",
+    "verifiedInGame"
+  ],
   "rows": [
-    {"id": "all_characters", "typeName": "Character", "member": "AllCharacters", "memberKind": "field", "isStatic": true, "purpose": "every scout in the session (co-op)", "fallback": "FindObjectsOfType(Character)", "verifiedInGame": false},
-    {"id": "local_character", "typeName": "Character", "member": "localCharacter", "memberKind": "field", "isStatic": true, "purpose": "this player's scout", "fallback": "main camera position", "verifiedInGame": false},
-    {"id": "char_center", "typeName": "Character", "member": "Center", "memberKind": "property", "isStatic": false, "purpose": "scout position for height", "fallback": "transform.position", "verifiedInGame": false},
-    {"id": "char_name", "typeName": "Character", "member": "characterName", "memberKind": "property", "isStatic": false, "purpose": "who reached the stage", "fallback": "Scout", "verifiedInGame": false},
-    {"id": "char_data", "typeName": "Character", "member": "data", "memberKind": "field", "isStatic": false, "purpose": "scout state", "fallback": "none (no oof on knockout)", "verifiedInGame": false},
-    {"id": "data_passed_out", "typeName": "CharacterData", "member": "passedOut", "memberKind": "field", "isStatic": false, "purpose": "knocked out -> oof", "fallback": "none", "verifiedInGame": false},
-    {"id": "data_dead", "typeName": "CharacterData", "member": "dead", "memberKind": "field", "isStatic": false, "purpose": "died -> oof", "fallback": "none", "verifiedInGame": false},
-    {"id": "data_fall", "typeName": "CharacterData", "member": "fallSeconds", "memberKind": "field", "isStatic": false, "purpose": "ragdoll fall -> oof", "fallback": "fast downward drop of scout", "verifiedInGame": false},
-    {"id": "campfire_light", "typeName": "Campfire", "member": "Light_Rpc", "memberKind": "method", "isStatic": false, "purpose": "campfire lit -> obby checkpoint", "fallback": "none (height stages still work)", "verifiedInGame": false}
+    {
+      "id": "all_characters",
+      "typeName": "Character",
+      "member": "AllCharacters",
+      "memberKind": "field",
+      "isStatic": true,
+      "purpose": "every scout in the session (co-op)",
+      "fallback": "FindObjectsOfType(Character)",
+      "verifiedInGame": true
+    },
+    {
+      "id": "local_character",
+      "typeName": "Character",
+      "member": "localCharacter",
+      "memberKind": "field",
+      "isStatic": true,
+      "purpose": "this player's scout",
+      "fallback": "main camera position",
+      "verifiedInGame": true
+    },
+    {
+      "id": "char_center",
+      "typeName": "Character",
+      "member": "Center",
+      "memberKind": "property",
+      "isStatic": false,
+      "purpose": "scout position for height",
+      "fallback": "transform.position",
+      "verifiedInGame": true
+    },
+    {
+      "id": "char_name",
+      "typeName": "Character",
+      "member": "characterName",
+      "memberKind": "property",
+      "isStatic": false,
+      "purpose": "who reached the stage",
+      "fallback": "Scout",
+      "verifiedInGame": true
+    },
+    {
+      "id": "char_data",
+      "typeName": "Character",
+      "member": "data",
+      "memberKind": "field",
+      "isStatic": false,
+      "purpose": "scout state",
+      "fallback": "none (no oof on knockout)",
+      "verifiedInGame": true
+    },
+    {
+      "id": "data_passed_out",
+      "typeName": "CharacterData",
+      "member": "passedOut",
+      "memberKind": "field",
+      "isStatic": false,
+      "purpose": "knocked out -> oof",
+      "fallback": "none",
+      "verifiedInGame": true
+    },
+    {
+      "id": "data_dead",
+      "typeName": "CharacterData",
+      "member": "dead",
+      "memberKind": "field",
+      "isStatic": false,
+      "purpose": "died -> oof",
+      "fallback": "none",
+      "verifiedInGame": false
+    },
+    {
+      "id": "data_fall",
+      "typeName": "CharacterData",
+      "member": "fallSeconds",
+      "memberKind": "field",
+      "isStatic": false,
+      "purpose": "ragdoll fall -> oof",
+      "fallback": "fast downward drop of scout",
+      "verifiedInGame": true
+    },
+    {
+      "id": "campfire_light",
+      "typeName": "Campfire",
+      "member": "Light_Rpc",
+      "memberKind": "method",
+      "isStatic": false,
+      "purpose": "campfire lit -> obby checkpoint",
+      "fallback": "none (height stages still work)",
+      "verifiedInGame": true
+    }
   ]
 }

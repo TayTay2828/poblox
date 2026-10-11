@@ -22,7 +22,7 @@
 - PEAK game members are resolved by name at runtime (see `sheets/hooks.json`). Anything missing is logged and falls back gracefully.
 
 ## Status
-v0.1.0 compiles and passes Melty's one-click check. It has **not been tested in the game yet**: the rows in `sheets/` marked `verifiedInGame: false` are waiting for a test run on a PC that has both PEAK and Roblox. Melty test runs report the checks in `sheets/tests.json`.
+v0.1.1 passed Melty's 3-run test on a PC with PEAK and Roblox (Microsoft Store version): the mod found Roblox, loaded its sounds and font, found PEAK's characters and campfires, and showed the banner. Not yet verified: `CharacterData.dead` (falls and knockouts already oof) and how the Roblox sky looks on the mountain.
 
 ## Credits
 - Mod: TayTay2828, built with Claude Code (AI-assisted).
