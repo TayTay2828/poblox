@@ -1,0 +1,11 @@
+{
+  "sheet": "systems",
+  "about": "Mod systems. Each is one behaviour with its config switch, the hooks it reads and the Roblox assets it uses.",
+  "columns": ["id", "description", "configKey", "default", "hooks", "assets"],
+  "rows": [
+    {"id": "stage_banner", "description": "Roblox-font 'Stage N' banner + Roblox sound when any scout reaches a new height stage", "configKey": "StageBanners", "default": true, "hooks": ["all_characters", "char_center", "char_name"], "assets": ["font_banner", "snd_stage"]},
+    {"id": "fall_oof", "description": "Roblox death sound when a scout falls, passes out or dies", "configKey": "OofOnFall", "default": true, "hooks": ["all_characters", "char_center", "char_data", "data_passed_out", "data_dead", "data_fall"], "assets": ["snd_oof"]},
+    {"id": "campfire_checkpoint", "description": "Lighting a campfire shows 'Checkpoint!' with a Roblox sound", "configKey": "CampfireCheckpoints", "default": true, "hooks": ["campfire_light"], "assets": ["snd_checkpoint", "font_banner"]},
+    {"id": "roblox_sky", "description": "Replaces the sky with Roblox's classic skybox when the camera uses a skybox", "configKey": "RobloxSky", "default": true, "hooks": ["local_character"], "assets": ["sky_roblox"]}
+  ]
+}

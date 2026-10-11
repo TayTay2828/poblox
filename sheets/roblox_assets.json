@@ -1,0 +1,12 @@
+{
+  "sheet": "roblox_assets",
+  "about": "Files read from the player's own Roblox install at runtime (never shipped). Paths are relative to the Roblox version folder (the one holding RobloxPlayerBeta.exe).",
+  "columns": ["id", "kind", "candidates", "searchDir", "keywords", "required", "usedBy", "verifiedInGame"],
+  "rows": [
+    {"id": "snd_oof", "kind": "sound", "candidates": ["content/sounds/ouch.ogg"], "searchDir": "content/sounds", "keywords": ["ouch", "oof", "death"], "required": true, "usedBy": "fall_oof", "verifiedInGame": false},
+    {"id": "snd_stage", "kind": "sound", "candidates": ["content/sounds/electronicpingshort.wav", "content/sounds/action_get_up.mp3"], "searchDir": "content/sounds", "keywords": ["ping", "get_up", "button", "click", "snap"], "required": false, "usedBy": "stage_banner", "verifiedInGame": false},
+    {"id": "snd_checkpoint", "kind": "sound", "candidates": ["content/sounds/action_jump_land.mp3", "content/sounds/action_jump.mp3"], "searchDir": "content/sounds", "keywords": ["jump", "land", "switch"], "required": false, "usedBy": "campfire_checkpoint", "verifiedInGame": false},
+    {"id": "font_banner", "kind": "font", "candidates": ["content/fonts/BuilderSans-Bold.otf", "content/fonts/SourceSansPro-Bold.ttf", "content/fonts/arialbd.ttf"], "searchDir": "content/fonts", "keywords": ["builder", "sourcesans", "gotham", "bold"], "required": false, "usedBy": "stage_banner", "verifiedInGame": false},
+    {"id": "sky_roblox", "kind": "sky", "candidates": ["PlatformContent/pc/textures/sky/sky512_{face}.tex", "content/sky/sky512_{face}.tex"], "searchDir": "PlatformContent/pc/textures/sky", "keywords": ["sky512"], "required": false, "usedBy": "roblox_sky", "verifiedInGame": false}
+  ]
+}

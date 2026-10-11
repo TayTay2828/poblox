@@ -1,0 +1,17 @@
+{
+  "sheet": "stages",
+  "about": "Obby stages. A stage is reached when any scout climbs minHeight metres above where the run started.",
+  "columns": ["stage", "minHeight", "bannerText", "soundId"],
+  "rows": [
+    {"stage": 1, "minHeight": 0, "bannerText": "Stage 1", "soundId": "snd_stage"},
+    {"stage": 2, "minHeight": 30, "bannerText": "Stage 2", "soundId": "snd_stage"},
+    {"stage": 3, "minHeight": 60, "bannerText": "Stage 3", "soundId": "snd_stage"},
+    {"stage": 4, "minHeight": 100, "bannerText": "Stage 4", "soundId": "snd_stage"},
+    {"stage": 5, "minHeight": 150, "bannerText": "Stage 5", "soundId": "snd_stage"},
+    {"stage": 6, "minHeight": 210, "bannerText": "Stage 6", "soundId": "snd_stage"},
+    {"stage": 7, "minHeight": 280, "bannerText": "Stage 7", "soundId": "snd_stage"},
+    {"stage": 8, "minHeight": 360, "bannerText": "Stage 8", "soundId": "snd_stage"},
+    {"stage": 9, "minHeight": 450, "bannerText": "Stage 9", "soundId": "snd_stage"},
+    {"stage": 10, "minHeight": 550, "bannerText": "Stage 10 - Almost there!", "soundId": "snd_stage"}
+  ]
+}

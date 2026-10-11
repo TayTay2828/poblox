@@ -1,0 +1,14 @@
+{
+  "_status": "DRAFT - not yet checked by Melty's validate_recipe / one_click_check (melty.gg unreachable from the build machine)",
+  "games": [
+    {"slug": "peak", "role": "primary"},
+    {"slug": "roblox", "role": "companion"}
+  ],
+  "loaders": ["bepinexpack-peak"],
+  "components": [
+    {"fileName": "RobloxObbyPeak-*.zip", "install": [{"from": "RobloxObbyPeak.dll", "to": "{game}/BepInEx/plugins/RobloxObbyPeak/RobloxObbyPeak.dll"}]}
+  ],
+  "launch": {"env": {"ROBLOXOBBYPEAK_ROBLOX_DIR": "{game:roblox}"}},
+  "multiplayer": {"maxPlayers": 4},
+  "test": {"env": {"ROBLOXOBBYPEAK_TEST": "1"}, "checks": [{"log": "{game}/BepInEx/LogOutput.log", "contains": "RobloxObbyPeak TEST:"}]}
+}

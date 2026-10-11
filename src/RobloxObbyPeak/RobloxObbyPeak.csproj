@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>RobloxObbyPeak</AssemblyName>
+    <RootNamespace>RobloxObbyPeak</RootNamespace>
+    <Version>0.1.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- Folder holding BepInEx.dll and 0Harmony.dll (BepInEx 5.4 core). Compile-time references only; never shipped. -->
+    <BepInExCoreDir Condition="'$(BepInExCoreDir)' == ''">$(MSBuildThisFileDirectory)../../lib/BepInEx/core/</BepInExCoreDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="UnityEngine.Modules" Version="2021.3.33" IncludeAssets="compile" PrivateAssets="all" />
+    <Reference Include="BepInEx"><HintPath>$(BepInExCoreDir)BepInEx.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(BepInExCoreDir)0Harmony.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>
