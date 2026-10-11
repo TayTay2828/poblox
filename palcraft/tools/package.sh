@@ -20,6 +20,8 @@ fetch() { [ -f "$CACHE/$2" ] || curl -sSfL -o "$CACHE/$2" "$1"; }
 fetch "https://github.com/PrismLauncher/PrismLauncher/releases/download/$PRISM/PrismLauncher-Windows-MSVC-Portable-$PRISM.zip" prism-$PRISM.zip
 fetch "https://raw.githubusercontent.com/PrismLauncher/PrismLauncher/$PRISM/LICENSE" prism-$PRISM-LICENSE.txt
 fetch "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar" "$FABRIC_API"
+# Microsoft Visual C++ runtime for Prism (redistributable; Microsoft lets programs ship these DLLs beside them)
+fetch "https://files.pythonhosted.org/packages/fe/17/7a1eace5a7c6083bd99db861625c08bb37010dfbe90ed7a0194ae0281689/msvc_runtime-14.44.35112-cp313-cp313-win_amd64.whl" msvc-runtime-14.44.35112.whl
 # Unreal type mappings for Palworld, from PalDex (MIT, Catherine Renelle): describes class layouts, no game content.
 fetch "https://raw.githubusercontent.com/catrenelle/PalDex/5a0f591582e91e2f9c294bcc6cb186ad87094523/extractor/Mappings.usmap" Mappings.usmap
 
@@ -41,6 +43,9 @@ B=$ROOT/dist/bundle
 rm -rf "$ROOT/dist" && mkdir -p "$B/Prism"
 unzip -q "$CACHE/prism-$PRISM.zip" -d "$B/Prism"
 cp "$CACHE/prism-$PRISM-LICENSE.txt" "$B/Prism/LICENSE-PrismLauncher.txt"
+for dll in msvcp140.dll msvcp140_1.dll msvcp140_2.dll vcruntime140.dll vcruntime140_1.dll; do
+  unzip -q -j -o "$CACHE/msvc-runtime-14.44.35112.whl" "msvc_runtime-14.44.35112.data/data/Scripts/$dll" -d "$B/Prism"
+done
 cp tools/bundle/prismlauncher.cfg "$B/Prism/prismlauncher.cfg"
 I=$B/Prism/instances/PalCraft
 mkdir -p "$I/.minecraft/mods" "$I/.minecraft/palcraft-tools" "$I/.minecraft/saves" "$I/.minecraft/config"

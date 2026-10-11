@@ -64,9 +64,6 @@
   "runtimeData": [
     "{managed}/Prism"
   ],
-  "notes": {
-    "firstLaunch": "The first start signs Minecraft in and downloads it, then PalCraft reads your Pals from your Palworld install (under a minute). You start in the PalCraft world with 16 Pal Spheres: hit a Pal to weaken it, then right-click to throw a sphere. Right-click a filled sphere to send your Pal out."
-  },
   "test": {
     "checks": [
       "palworld-read",
