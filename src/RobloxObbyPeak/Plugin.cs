@@ -35,7 +35,11 @@ namespace RobloxObbyPeak
         readonly Dictionary<int, bool> wasDown = new Dictionary<int, bool>();
         readonly Dictionary<int, (float y, float t)> lastPos = new Dictionary<int, (float, float)>();
         readonly Dictionary<int, float> lastOof = new Dictionary<int, float>();
-        bool testMode, testDone;
+        bool testMode;
+        string checksFile;
+        Driver driver;
+
+        internal class Driver : MonoBehaviour { void Update() => Instance?.Tick(); }
 
         void Awake()
         {
@@ -43,12 +47,16 @@ namespace RobloxObbyPeak
             robloxFolder = Config.Bind("Roblox", "RobloxFolder", "", "Roblox install or version folder. Empty = use the folder Melty passes, else %LOCALAPPDATA%\\Roblox.");
             foreach (var s in Sheets.Systems)
                 systems[s.Id] = Config.Bind("Systems", s.ConfigKey, s.Default, s.Description);
-            testMode = Environment.GetEnvironmentVariable(TestEnv) == "1";
+            testMode = RobloxLocator.Setting(TestEnv) == "1";
 
+            checksFile = MeltyTest.ChecksFile();
+            testMode |= checksFile != null;
             var root = RobloxLocator.Find(robloxFolder.Value, m => Log.LogInfo(m));
             if (root == null)
             {
                 Log.LogError("Roblox install not found. Install Roblox (it only needs to be installed, not running) or set RobloxFolder in the config.");
+                if (testMode)
+                    MeltyTest.Report(checksFile, Sheets.Tests.ToDictionary(t => t.Id, t => "Roblox install not found"));
                 return;
             }
             Log.LogInfo("Roblox content <- " + root);
@@ -61,7 +69,9 @@ namespace RobloxObbyPeak
             audio2d = go.AddComponent<AudioSource>();
             audio2d.playOnAwake = false; audio2d.spatialBlend = 0f;
             banner = go.AddComponent<Banner>();
-            StartCoroutine(Boot());
+            // our own object drives the mod, in case the game destroys BepInEx's manager object
+            driver = go.AddComponent<Driver>();
+            driver.StartCoroutine(Boot());
 
             SceneManager.sceneLoaded += (s, _) => ResetRun(s.name);
             var light = hooks.Method("campfire_light");
@@ -75,6 +85,7 @@ namespace RobloxObbyPeak
             banner.Setup(assets.FontPath);
             if (assets.SkyTextures != null && On("roblox_sky")) BuildSky();
             Log.LogInfo($"RobloxObbyPeak ready: sounds={string.Join(",", assets.Sounds.Keys)} font={banner.FontSource} sky={(skyMaterial != null ? "roblox" : "peak")}");
+            if (testMode) RunTest();
         }
 
         bool On(string system) => systems.TryGetValue(system, out var c) && c.Value;
@@ -90,7 +101,7 @@ namespace RobloxObbyPeak
             ApplySky();
         }
 
-        void Update()
+        void Tick()
         {
             if (hooks == null || assets == null || !assets.Done) return;
             if (!IsGameplayScene(SceneManager.GetActiveScene().name)) return;
@@ -112,7 +123,6 @@ namespace RobloxObbyPeak
                 if (On("fall_oof")) CheckOof(c, id, pos);
             }
 
-            if (testMode && !testDone && Time.time - firstSeen > 6f) RunTest(chars[0]);
         }
 
         void CheckStage(Component c, float height)
@@ -175,13 +185,22 @@ namespace RobloxObbyPeak
             DynamicGI.UpdateEnvironment();
         }
 
-        void RunTest(Component c)
+        void RunTest()
         {
-            testDone = true;
             banner.Show("Stage 1", "Roblox Obby Peak test", 5f);
             Play("snd_stage", null);
             Play("snd_oof", null);
-            Log.LogInfo($"RobloxObbyPeak TEST: characters={hooks.Characters().Count} oofSound={assets.Sounds.ContainsKey("snd_oof")} font={banner.FontSource} stage={teamStage}");
+            var fail = new Dictionary<string, string>
+            {
+                ["roblox-found"] = null,
+                ["oof-sound"] = assets.Sounds.ContainsKey("snd_oof") ? null : "ouch.ogg not found or not decodable",
+                ["peak-hooks"] = hooks.CharacterType == null ? "PEAK Character type not found"
+                    : !hooks.Has("all_characters") ? "Character.AllCharacters not found"
+                    : !hooks.Has("char_data") ? "Character.data not found" : null,
+                ["banner-shown"] = null,
+            };
+            Log.LogInfo($"RobloxObbyPeak TEST: font={banner.FontSource} sounds={assets.Sounds.Count}");
+            MeltyTest.Report(checksFile, fail);
         }
     }
 }

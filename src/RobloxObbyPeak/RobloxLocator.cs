@@ -9,12 +9,32 @@ namespace RobloxObbyPeak
     {
         public const string EnvVar = "ROBLOXOBBYPEAK_ROBLOX_DIR";
 
+        /// <summary>key=value file Melty writes before every start ({localappdata}/RobloxObbyPeak/settings.cfg).</summary>
+        public static string Setting(string key)
+        {
+            var env = Environment.GetEnvironmentVariable(key);
+            if (!string.IsNullOrWhiteSpace(env)) return env;
+            try
+            {
+                var local = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var file = Path.Combine(local, "RobloxObbyPeak", "settings.cfg");
+                if (!File.Exists(file)) return null;
+                foreach (var line in File.ReadAllLines(file))
+                {
+                    var i = line.IndexOf('=');
+                    if (i > 0 && line.Substring(0, i).Trim() == key) return line.Substring(i + 1).Trim();
+                }
+            }
+            catch (Exception) { }
+            return null;
+        }
+
         public static string Find(string configured, Action<string> log)
         {
             var local = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var tries = new[]
             {
-                Environment.GetEnvironmentVariable(EnvVar),
+                Setting(EnvVar),
                 configured,
                 string.IsNullOrEmpty(local) ? null : Path.Combine(local, "Roblox"),
                 string.IsNullOrEmpty(local) ? null : Path.Combine(local, "Bloxstrap"),

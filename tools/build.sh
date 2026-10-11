@@ -10,7 +10,7 @@ if [ ! -f lib/BepInEx/core/BepInEx.dll ]; then
 fi
 python3 tools/gen.py
 dotnet build src/RobloxObbyPeak -c Release -nologo -v q
-rm -rf dist && mkdir -p dist/pkg
-cp src/RobloxObbyPeak/bin/Release/netstandard2.1/RobloxObbyPeak.dll README.md LICENSE dist/pkg/
+rm -rf dist && mkdir -p dist/pkg/plugins
+cp src/RobloxObbyPeak/bin/Release/netstandard2.1/RobloxObbyPeak.dll README.md LICENSE dist/pkg/plugins/
 (cd dist/pkg && zip -q -X -r "../RobloxObbyPeak-$VERSION.zip" .)
 sha256sum "dist/RobloxObbyPeak-$VERSION.zip"

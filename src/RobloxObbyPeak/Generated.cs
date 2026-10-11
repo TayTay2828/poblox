@@ -5,6 +5,7 @@ namespace RobloxObbyPeak
     internal struct StageRow { public int Stage; public float MinHeight; public string BannerText, SoundId; }
     internal struct HookRow { public string Id, TypeName, Member, MemberKind, Purpose, Fallback; public bool IsStatic; }
     internal struct SystemRow { public string Id, Description, ConfigKey; public bool Default; public string[] Hooks, Assets; }
+    internal struct TestRow { public string Id, PassWhen, System; }
 
     internal static class Sheets
     {
@@ -43,6 +44,12 @@ namespace RobloxObbyPeak
             new SystemRow { Id = "fall_oof", Description = "Roblox death sound when a scout falls, passes out or dies", ConfigKey = "OofOnFall", Default = true, Hooks = new[] { "all_characters", "char_center", "char_data", "data_passed_out", "data_dead", "data_fall" }, Assets = new[] { "snd_oof" } },
             new SystemRow { Id = "campfire_checkpoint", Description = "Lighting a campfire shows 'Checkpoint!' with a Roblox sound", ConfigKey = "CampfireCheckpoints", Default = true, Hooks = new[] { "campfire_light" }, Assets = new[] { "snd_checkpoint", "font_banner" } },
             new SystemRow { Id = "roblox_sky", Description = "Replaces the sky with Roblox's classic skybox when the camera uses a skybox", ConfigKey = "RobloxSky", Default = true, Hooks = new[] { "local_character" }, Assets = new[] { "sky_roblox" } },
+        };
+        public static readonly TestRow[] Tests = {
+            new TestRow { Id = "roblox-found", PassWhen = "the player's Roblox version folder was found", System = "stage_banner" },
+            new TestRow { Id = "oof-sound", PassWhen = "Roblox's ouch.ogg was read and decoded", System = "fall_oof" },
+            new TestRow { Id = "peak-hooks", PassWhen = "PEAK's Character list and state fields resolved", System = "fall_oof" },
+            new TestRow { Id = "banner-shown", PassWhen = "a Stage banner was shown (Roblox font when TMP accepts it)", System = "stage_banner" },
         };
     }
 }

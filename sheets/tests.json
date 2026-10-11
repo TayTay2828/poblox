@@ -1,0 +1,11 @@
+{
+  "sheet": "tests",
+  "about": "Checks the mod reports in a Melty test run (recipe test.checks). Written to the checks file named in %LOCALAPPDATA%/Melty/test/roblox-obby-peak.json.",
+  "columns": ["id", "passWhen", "system"],
+  "rows": [
+    {"id": "roblox-found", "passWhen": "the player's Roblox version folder was found", "system": "stage_banner"},
+    {"id": "oof-sound", "passWhen": "Roblox's ouch.ogg was read and decoded", "system": "fall_oof"},
+    {"id": "peak-hooks", "passWhen": "PEAK's Character list and state fields resolved", "system": "fall_oof"},
+    {"id": "banner-shown", "passWhen": "a Stage banner was shown (Roblox font when TMP accepts it)", "system": "stage_banner"}
+  ]
+}

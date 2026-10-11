@@ -22,7 +22,7 @@
 - PEAK game members are resolved by name at runtime (see `sheets/hooks.json`). Anything missing is logged and falls back gracefully.
 
 ## Status
-v0.1.0 compiles. It has **not been tested in the game yet**: the rows in `sheets/` marked `verifiedInGame: false` are waiting for a test run on a PC that has both PEAK and Roblox.
+v0.1.0 compiles and passes Melty's one-click check. It has **not been tested in the game yet**: the rows in `sheets/` marked `verifiedInGame: false` are waiting for a test run on a PC that has both PEAK and Roblox. Melty test runs report the checks in `sheets/tests.json`.
 
 ## Credits
 - Mod: TayTay2828, built with Claude Code (AI-assisted).

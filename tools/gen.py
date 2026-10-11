@@ -62,6 +62,9 @@ def preflight(sheets):
         for a in r["assets"]:
             if a not in assets:
                 errors.append(f"systems[{r['id']}].assets: '{a}' not in roblox_assets sheet")
+    for r in sheets["tests"]["rows"]:
+        if r["system"] not in systems:
+            errors.append(f"tests[{r['id']}].system: '{r['system']}' not in systems sheet")
     for a in assets.values():
         for u in a["usedBy"].split(","):
             if u.strip() not in systems:
@@ -81,6 +84,7 @@ def generate(sheets):
          "    internal struct StageRow { public int Stage; public float MinHeight; public string BannerText, SoundId; }",
          "    internal struct HookRow { public string Id, TypeName, Member, MemberKind, Purpose, Fallback; public bool IsStatic; }",
          "    internal struct SystemRow { public string Id, Description, ConfigKey; public bool Default; public string[] Hooks, Assets; }",
+         "    internal struct TestRow { public string Id, PassWhen, System; }",
          "", "    internal static class Sheets", "    {"]
     L.append("        public static readonly RobloxAssetRow[] RobloxAssets = {")
     for r in sheets["roblox_assets"]["rows"]:
@@ -98,12 +102,16 @@ def generate(sheets):
     for r in sheets["systems"]["rows"]:
         L.append(f"            new SystemRow {{ Id = {cs(r['id'])}, Description = {cs(r['description'])}, ConfigKey = {cs(r['configKey'])}, Default = {cs(r['default'])}, Hooks = {cs(r['hooks'])}, Assets = {cs(r['assets'])} }},")
     L.append("        };")
+    L.append("        public static readonly TestRow[] Tests = {")
+    for r in sheets["tests"]["rows"]:
+        L.append(f"            new TestRow {{ Id = {cs(r['id'])}, PassWhen = {cs(r['passWhen'])}, System = {cs(r['system'])} }},")
+    L.append("        };")
     L += ["    }", "}", ""]
     return "\n".join(L).replace(".0f", "f")
 
 
 def main():
-    sheets = {n: load(n) for n in ("roblox_assets", "stages", "hooks", "systems")}
+    sheets = {n: load(n) for n in ("roblox_assets", "stages", "hooks", "systems", "tests")}
     errors, unverified = preflight(sheets)
     print(f"preflight: {sum(len(s['rows']) for s in sheets.values())} rows across {len(sheets)} sheets")
     for e in errors:

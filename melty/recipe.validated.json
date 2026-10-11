@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed",
+  "games": [
+    {
+      "slug": "peak",
+      "role": "primary"
+    },
+    {
+      "slug": "roblox",
+      "role": "companion"
+    }
+  ],
+  "components": [
+    {
+      "id": "main",
+      "fileName": "RobloxObbyPeak-*.zip",
+      "label": "Roblox Obby Peak",
+      "kind": "main",
+      "required": true
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "loader",
+      "id": "bepinexpack-peak"
+    }
+  ],
+  "mappings": [
+    {
+      "component": "main",
+      "from": "plugins/",
+      "to": "{game}/BepInEx/plugins/RobloxObbyPeak"
+    }
+  ],
+  "settings": [
+    {
+      "file": "{localappdata}/RobloxObbyPeak/settings.cfg",
+      "set": {
+        "ROBLOXOBBYPEAK_ROBLOX_DIR": "{game:roblox}"
+      }
+    }
+  ],
+  "runtimeData": [
+    "{localappdata}/RobloxObbyPeak"
+  ],
+  "launch": {
+    "kind": "game"
+  },
+  "multiplayer": {
+    "maxPlayers": 4
+  },
+  "test": {
+    "checks": [
+      "roblox-found",
+      "oof-sound",
+      "peak-hooks",
+      "banner-shown"
+    ],
+    "minutes": 5
+  }
+}
